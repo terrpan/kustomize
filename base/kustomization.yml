@@ -1,0 +1,14 @@
+resources:
+  - deployment.yml
+  - service.yml
+  - ingress.yml
+
+configMapGenerator:
+  - name: appsettings
+    options:
+      disableNameSuffixHash: true
+    files:
+      - config/appsettings.json
+
+commonLabels:
+  app: awesome-dispatcher

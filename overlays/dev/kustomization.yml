@@ -1,0 +1,19 @@
+namespace: dev-namespace
+
+resources:
+  - ../../base
+
+# add labels to deployment
+commonLabels:
+  environment: dev
+
+# patch changes to ingress like host url. Add some env vars to the pod
+patchesStrategicMerge:
+  - patch/deployment.yml
+  - patch/ingress.yml
+
+# change image
+images:
+  - name: nginx:1.14.2
+    newName: dtr-acc.fqdn.com/myteam/myapp
+    newTag: "1234"

@@ -1,0 +1,15 @@
+namespace: stage-namespace
+resources:
+  - ../../base
+
+commonLabels:
+  environment: stage
+
+patchesStrategicMerge:
+  - patch/deployment.yml
+  - patch/ingress.yml
+
+images:
+  - name: nginx:1.14.2
+    newName: dtr-acc.fqdn.com/myteam/myapp
+    newTag: "1234"

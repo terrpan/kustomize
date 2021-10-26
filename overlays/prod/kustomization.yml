@@ -1,0 +1,32 @@
+namespace: prod-namespace
+
+resources:
+  - ../../base
+
+# add labels to the deployment
+commonLabels:
+  environment: prod
+
+# change number of replicas for prod
+replicas:
+- name: nginx-deployment
+  count: 3
+
+# patch changes for prod
+patchesStrategicMerge:
+  - patch/ingress.yml
+
+# Create a specific prod configmap
+configMapGenerator:
+  - name: appsettings
+    behavior: replace
+    options:
+      disableNameSuffixHash: true 
+    files:
+      - config/appsettings.json
+
+# change image for prod
+images:
+  - name: nginx:1.14.2
+    newName: dtr.fqdn.com/myteam/myapp
+    newTag: "1234"
